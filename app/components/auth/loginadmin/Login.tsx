@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axiosInstance from "@/app/api";
 import SERVER_API_URL from "@/app/config";
 import { User } from "@/app/types";
-import { jwtDecode } from "jwt-decode"; // Notez la correction : supprimez les accolades
+import { jwtDecode } from "jwt-decode";
+import { useRouter } from 'next/navigation';
 
 interface LoginProps {
     onClose: () => void;
@@ -15,6 +16,7 @@ const Login: React.FC<LoginProps> = ({ onClose, setUserLoggedIn, setCurrentPage 
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const router = useRouter(); // Utiliser le routeur de Next.js
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -46,6 +48,7 @@ const Login: React.FC<LoginProps> = ({ onClose, setUserLoggedIn, setCurrentPage 
                     setUserLoggedIn(decodedData);
                 }
                 onClose();
+                router.push('/dashboard'); // Rediriger vers le tableau de bord
             }
         } catch (e: any) {
             console.error("Erreur reçue:", e);

@@ -16,6 +16,7 @@ export interface SearchManufacturerProps {
 }
 
 export interface AppointmentProps {
+  id: number,
   name: string;
   firstName: string;
   email: string;
@@ -43,6 +44,7 @@ export interface CarProps {
   type: string;
   images:string;
 }
+
 
 
 export interface CartProps {
@@ -92,12 +94,18 @@ export interface ShowMoreProps {
 }
 
 export interface User {
+  id: number,
   sub: string,
   fullName: string,
+  name: string,
   phone: string,
   email: string,
   role: string,
   avatarPath: string,
   createdAt: Date,
   updatedAt: Date
+}
+
+export interface JwtPayload {
+  role: string;
 }

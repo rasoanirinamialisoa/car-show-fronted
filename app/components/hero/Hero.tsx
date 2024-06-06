@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { CustomButton } from "..";
 import Link from "next/link";
+import { Navbar } from "@/app/components";
+
 const Hero = () => {
   const [user, setUser] = useState<string | null>(null);
 
@@ -18,13 +20,14 @@ const Hero = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="hero">
         <div className="flex-1 pt-36 padding-x">
           <h1 className="hero__title">
-          Your dream car is with us!
+            Your dream car is with us!
           </h1>
           <p className="hero__subtitle">
-          Increase your savings and streamline your car-buying experience with our online platform.
+            Increase your savings and streamline your car-buying experience with our online platform.
           </p>
           <div className="flex flex-row gap-5">
             <Link href="/cars" className="">
