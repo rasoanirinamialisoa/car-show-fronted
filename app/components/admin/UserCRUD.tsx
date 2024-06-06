@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "@/app/api";
 import SERVER_API_URL from "@/app/config";
-import { Users } from "@/app/types";
+import { User } from "@/app/types";
 
 const UserCRUD = () => {
-    const [users, setUsers] = useState<Users[]>([]);
-    const [newUser, setNewUser] = useState<Users>({
+    const [users, setUsers] = useState<User[]>([]);
+    const [newUser, setNewUser] = useState<User>({
         name: "",
         email: "",
     });
