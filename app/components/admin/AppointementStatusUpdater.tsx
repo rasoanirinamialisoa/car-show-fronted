@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { updateAppointmentStatus } from '../../api/appointement';
 
+
 interface AppointmentStatusUpdaterProps {
   appointmentId: number;
   currentStatus: string;
@@ -24,16 +25,26 @@ const AppointmentStatusUpdater: React.FC<AppointmentStatusUpdaterProps> = ({ app
   };
 
   return (
-    <div>
-      <h2>Update Appointment Status</h2>
-      <p>Current Status: {status}</p>
-      <button onClick={() => handleStatusChange('Confirmed')} disabled={loading}>
+    <div className="flex">
+      <button
+        onClick={() => handleStatusChange('Confirmed')}
+        disabled={loading}
+        className="bg-green-500 text-white px-4 py-1 rounded mr-2"
+      >
         Confirm
       </button>
-      <button onClick={() => handleStatusChange('Rejected')} disabled={loading}>
+      <button
+        onClick={() => handleStatusChange('Rejected')}
+        disabled={loading}
+        className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+      >
         Reject
       </button>
-      <button onClick={() => handleStatusChange('Archived')} disabled={loading}>
+      <button
+        onClick={() => handleStatusChange('Archived')}
+        disabled={loading}
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
         Archive
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
