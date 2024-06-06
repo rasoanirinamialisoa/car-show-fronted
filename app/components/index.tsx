@@ -5,7 +5,6 @@ import Footer from "./footer/Footer";
 import SearchBar from "./search/SearchBar";
 import CustomFilter from "./search/CustomFilter";
 import SearchManufacturer from "./search/SearchManufacturer";
-import CarCard from "./card/CarCard";
 import ShowMore from "./button/ShowMore";
 import Auth from "./auth/Auth";
 import SignUp from "./auth/signUp/SignUp";
@@ -22,7 +21,6 @@ export {
   SearchBar,
   CustomFilter,
   SearchManufacturer,
-  CarCard,
   ShowMore,
   Auth,
   SignUp,

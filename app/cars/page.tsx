@@ -1,4 +1,4 @@
-import { CarCard, CartCarCard, CustomFilter, SearchBar, ShowMore } from "@/app/components";
+import { CartCarCard, CustomFilter, SearchBar, ShowMore } from "@/app/components";
 import { fuels, yearsOfProduction } from "@/app/constants";
 import { HomeProps } from "@/app/types";
 import { fetchCars } from "@/app/utils";
