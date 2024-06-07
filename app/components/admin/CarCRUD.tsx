@@ -1,8 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import axiosInstance from "@/app/api";
 import SERVER_API_URL from "@/app/config";
 import { Car } from "@/app/types";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CarCRUD = () => {
     const [cars, setCars] = useState<Car[]>([]);
@@ -28,35 +29,43 @@ const CarCRUD = () => {
         try {
             const response = await axiosInstance.get(`${SERVER_API_URL}/car`);
             setCars(response.data);
+            toast.success("Cars fetched successfully.");
         } catch (error) {
             console.error("Error fetching cars:", error);
+            toast.error("Failed to fetch cars.");
         }
     };
 
     const handleCreateCar = async () => {
         try {
-            await axiosInstance.post(`${SERVER_API_URL}/car`, newCar);
+            await axiosInstance.post(`${SERVER_API_URL}/car/new`, newCar);
             fetchCars();
+            toast.success("Car created successfully.");
         } catch (error) {
             console.error("Error creating car:", error);
+            toast.error("Failed to create car.");
         }
     };
 
     const handleUpdateCar = async (id: string, updatedCar: Car) => {
         try {
-            await axiosInstance.put(`${SERVER_API_URL}/car/${id}`, updatedCar);
+            await axiosInstance.put(`${SERVER_API_URL}/car/update/${id}`, updatedCar);
             fetchCars();
+            toast.success("Car updated successfully.");
         } catch (error) {
             console.error("Error updating car:", error);
+            toast.error("Failed to update car.");
         }
     };
 
     const handleDeleteCar = async (id: string) => {
         try {
-            await axiosInstance.delete(`${SERVER_API_URL}/car/${id}`);
+            await axiosInstance.delete(`${SERVER_API_URL}/car/delete/${id}`);
             fetchCars();
+            toast.success("Car deleted successfully.");
         } catch (error) {
             console.error("Error deleting car:", error);
+            toast.error("Failed to delete car.");
         }
     };
 
@@ -64,10 +73,13 @@ const CarCRUD = () => {
         const updatedCars = [...cars];
         updatedCars[index][key] = value;
         setCars(updatedCars);
+        console.log(`Updated ${key} for car ${index + 1}`);
     };
+
 
     return (
         <div className="p-4">
+            <ToastContainer />
             <h2 className="text-2xl font-semibold mb-4">Car Management</h2>
             <div className="mb-4 space-y-2">
                 <input
@@ -99,7 +111,7 @@ const CarCRUD = () => {
                     className="border p-2 rounded"
                 />
                 <input
-                    type="number"
+                    type="text"
                     placeholder="Motor Type"
                     value={newCar.motorType}
                     onChange={(e) => setNewCar({ ...newCar, motorType: e.target.value })}
@@ -119,7 +131,36 @@ const CarCRUD = () => {
                     onChange={(e) => setNewCar({ ...newCar, color: e.target.value })}
                     className="border p-2 rounded"
                 />
-                {/* Add more input fields for other properties */}
+                 <input
+                    type="text"
+                    placeholder="Power"
+                    value={newCar.power}
+                    onChange={(e) => setNewCar({ ...newCar, power: e.target.value })}
+                    className="border p-2 rounded"
+                />
+                
+                <input
+                    type="text"
+                    placeholder="Place"
+                    value={newCar.place}
+                    onChange={(e) => setNewCar({ ...newCar, place: e.target.value })}
+                    className="border p-2 rounded"
+                />
+
+                <input
+                    type="text"
+                    placeholder="Status"
+                    value={newCar.status}
+                    onChange={(e) => setNewCar({ ...newCar, status: e.target.value })}
+                    className="border p-2 rounded"
+                />
+                  <input
+                    type="text"
+                    placeholder="Type"
+                    value={newCar.type}
+                    onChange={(e) => setNewCar({ ...newCar, type: e.target.value })}
+                    className="border p-2 rounded"
+                />
                 <button onClick={handleCreateCar} className="bg-green-500 text-white px-4 py-2 rounded">Create Car</button>
             </div>
             <table className="w-full">

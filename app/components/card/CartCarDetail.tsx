@@ -54,7 +54,7 @@ const CartCarDetails = ({ isOpen, closeModal, car }: CartCarDetailsProps) => {
         try {
             const response = await axios.post(`${SERVER_API_URL}/appointment`, appointment);
             if (response.status === 201) {
-                toast.success('Appointment booked successfully!');
+                toast.success('Appointment successfully!');
                 closeModal();
             }
         } catch (error) {

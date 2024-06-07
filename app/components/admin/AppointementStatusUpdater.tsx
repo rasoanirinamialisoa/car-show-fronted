@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { updateAppointmentStatus } from '../../api/appointement';
-
+import { toast } from 'react-toastify';
 
 interface AppointmentStatusUpdaterProps {
   appointmentId: number;
@@ -18,8 +18,10 @@ const AppointmentStatusUpdater: React.FC<AppointmentStatusUpdaterProps> = ({ app
     try {
       await updateAppointmentStatus(appointmentId, newStatus);
       setStatus(newStatus);
+      toast.success(`Appointment ${newStatus}`);
     } catch (error) {
       setError('Failed to update status');
+      toast.error('Failed to update appointment status');
     }
     setLoading(false);
   };

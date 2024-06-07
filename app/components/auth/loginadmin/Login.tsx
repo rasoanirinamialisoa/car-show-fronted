@@ -29,7 +29,7 @@ const Login: React.FC<LoginProps> = ({ onClose, setUserLoggedIn, setCurrentPage 
         });
 
         try {
-            const response = await axiosInstance.post(`${SERVER_API_URL}/auth/signin`, {
+            const response = await axiosInstance.post(`${SERVER_API_URL}/auth/signinAdmin`, {
                 Email: email,
                 Password: password
             });
@@ -90,7 +90,7 @@ const Login: React.FC<LoginProps> = ({ onClose, setUserLoggedIn, setCurrentPage 
                     className={`flex justify-center items-center w-full ${loading ? "bg-gray-300" : "bg-purple-500 hover:bg-text-purple-500"} text-white font-bold py-2 px-4 rounded`}
                 >
                     {loading && <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-gray-900"></div>}
-                    Login
+                    Login admin
                 </button>
             </form>
         </div>

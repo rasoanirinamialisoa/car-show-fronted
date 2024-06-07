@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -48,7 +49,9 @@ const AppointmentForm = ({ closeModal }: AppointmentFormProps) => {
         });
     };
     
-    const handleSubmitAppointment = async () => {
+   
+    const handleSubmitAppointment = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         setLoading(true);
         try {
             const car = { id: appointment.carId };
@@ -72,81 +75,100 @@ const AppointmentForm = ({ closeModal }: AppointmentFormProps) => {
         } catch (error) {
             toast.error("Failed to book appointment.");
             console.error("Error booking appointment:", error);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
+    
+        
     return (
-        <div className="container mt-4">
-            <input
-                type="text"
-                name="Name"
-                value={appointment.Name}
-                onChange={handleInputChange}
-                placeholder="Last Name"
-                className="input"
-            />
-            <input
-                type="text"
-                name="FirstName"
-                value={appointment.FirstName}
-                onChange={handleInputChange}
-                placeholder="First Name"
-                className="input"
-            />
-            <input
-                type="email"
-                name="Email"
-                value={appointment.Email}
-                onChange={handleInputChange}
-                placeholder="Email"
-                className="input"
-            />
-            <textarea
-                name="Message"
-                value={appointment.Message}
-                onChange={handleInputChange}
-                placeholder="Message"
-                className="textarea"
-            />
-            <input
-                type="text"
-                name="Contact"
-                value={appointment.Contact}
-                onChange={handleInputChange}
-                placeholder="Contact Number"
-                className="input"
-            />
-            <input
-                type="datetime-local"
-                name="AppointmentDate"
-                value={appointment.AppointmentDate}
-                onChange={handleInputChange}
-                className="input"
-            />
-            <input
-                type="text"
-                name="Status"
-                value={appointment.Status}
-                onChange={handleInputChange}
-                placeholder="Status"
-                className="input"
-            />
-            <select
-                name="carId"
-                value={appointment.carId}
-                onChange={handleInputChange}
-                className="input"
-            >
-                <option value="">Select Car</option>
-                {cars.map((car) => (
-                    <option key={car.id} value={car.id}>
-                        {car.model}
-                    </option>
-                ))}
-            </select>
-            <button disabled={loading} onClick={handleSubmitAppointment} className="button mt-3">
-                {loading ? "Loading..." : "Submit Appointment"}
-            </button>
+        <div className="p-10 pt-5" style={{ minWidth: 500, minHeight: 450 }}>
+            <form onSubmit={handleSubmitAppointment}>
+               
+                <input
+                    required
+                    type="text"
+                    name="Name"
+                    value={appointment.Name}
+                    onChange={handleInputChange}
+                    placeholder="Last Name"
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                />
+                <input
+                    required
+                    type="text"
+                    name="FirstName"
+                    value={appointment.FirstName}
+                    onChange={handleInputChange}
+                    placeholder="First Name"
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                />
+                <input
+                    required
+                    type="email"
+                    name="Email"
+                    value={appointment.Email}
+                    onChange={handleInputChange}
+                    placeholder="Email"
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                />
+                <textarea
+                    required
+                    name="Message"
+                    value={appointment.Message}
+                    onChange={handleInputChange}
+                    placeholder="Message"
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                />
+                <input
+                    required
+                    type="text"
+                    name="Contact"
+                    value={appointment.Contact}
+                    onChange={handleInputChange}
+                    placeholder="Contact Number"
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                />
+                <input
+                    required
+                    type="datetime-local"
+                    name="AppointmentDate"
+                    value={appointment.AppointmentDate}
+                    onChange={handleInputChange}
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                />
+                <input
+                    required
+                    type="text"
+                    name="Status"
+                    value={appointment.Status}
+                    onChange={handleInputChange}
+                    placeholder="Status"
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                />
+                <select
+                    required
+                    name="carId"
+                    value={appointment.carId}
+                    onChange={handleInputChange}
+                    className="block w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-purple-500 focus:ring"
+                >
+                    <option value="">Select Car</option>
+                    {cars.map((car) => (
+                        <option key={car.id} value={car.id}>
+                            {car.model}
+                        </option>
+                    ))}
+                </select>
+                <button
+                    disabled={loading}
+                    type="submit"
+                    className={`flex justify-center items-center w-full ${loading ? "bg-gray-300" : "bg-purple-500 hover:bg-text-purple-500"} text-white font-bold py-2 px-4 rounded`}
+                >
+                    {loading && <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-gray-900"></div>}
+                    {loading ? "Loading..." : "Submit Appointment"}
+                </button>
+            </form>
         </div>
     );
 };

@@ -93,17 +93,11 @@ export interface ShowMoreProps {
   isNext: boolean;
 }
 
-export interface User {
+export interface UserProps {
   id: number,
-  sub: string,
-  fullName: string,
   name: string,
-  phone: string,
   email: string,
-  role: string,
-  avatarPath: string,
-  createdAt: Date,
-  updatedAt: Date
+  password: string
 }
 
 export interface JwtPayload {

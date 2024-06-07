@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "@/app/api";
 import SERVER_API_URL from "@/app/config";
 import { Car, Image } from "@/app/types";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ImageCRUD = () => {
   const [images, setImages] = useState<Image[]>([]);
@@ -15,37 +17,61 @@ const ImageCRUD = () => {
   }, []);
 
   const fetchImages = async () => {
-    const response = await axiosInstance.get(`${SERVER_API_URL}/images`);
-    setImages(response.data);
+    try {
+      const response = await axiosInstance.get(`${SERVER_API_URL}/images`);
+      setImages(response.data);
+      toast.success("Images fetched successfully.");
+    } catch (error) {
+      console.error("Error fetching images:", error);
+      toast.error("Failed to fetch images.");
+    }
   };
 
   const fetchCars = async () => {
-    const response = await axiosInstance.get(`${SERVER_API_URL}/car`);
-    setCars(response.data);
+    try {
+      const response = await axiosInstance.get(`${SERVER_API_URL}/car`);
+      setCars(response.data);
+      toast.success("Cars fetched successfully.");
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+      toast.error("Failed to fetch cars.");
+    }
   };
 
   const handleUploadImage = async () => {
-    if (!newImage) return;
-
+    if (!newImage || !selectedCar) return;
+  
     const formData = new FormData();
     formData.append("image", newImage);
     formData.append("carId", selectedCar);
-
-    await axiosInstance.post(`${SERVER_API_URL}/images`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    fetchImages();
+  
+    try {
+      await axiosInstance.post(`${SERVER_API_URL}/images/new`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      fetchImages();
+      toast.success("Image uploaded successfully.");
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image.");
+    }
   };
+  
 
   const handleDeleteImage = async (id: string) => {
-    await axiosInstance.delete(`${SERVER_API_URL}/images/${id}`);
-    fetchImages();
+    try {
+      await axiosInstance.delete(`${SERVER_API_URL}/images/${id}`);
+      fetchImages();
+      toast.success("Image deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting image:", error);
+      toast.error("Failed to delete image.");
+    }
   };
 
   const handleUpdateImage = async (id: string) => {
-    // Logique pour la mise à jour de l'image
     console.log(`Update image with ID: ${id}`);
   };
 
@@ -65,6 +91,7 @@ const ImageCRUD = () => {
             </option>
           ))}
         </select>
+
         <button onClick={handleUploadImage} className="bg-blue-500 text-white px-4 py-2 rounded">Upload Image</button>
       </div>
       <ul className="text-left">

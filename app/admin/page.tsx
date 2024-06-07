@@ -22,13 +22,13 @@ const AdminPage = () => {
 
   const handleCloseModal = () => {
     setShowLoginModal(false);
-    router.push('/'); // Rediriger après la fermeture du modal
+    router.push('/');
   };
 
   const handleLoginSuccess = (user: User) => {
     setUserLoggedIn(user);
     setShowLoginModal(false);
-    // Rediriger ou effectuer d'autres actions après la connexion réussie
+
   };
 
   return (
