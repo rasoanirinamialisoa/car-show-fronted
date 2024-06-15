@@ -62,7 +62,7 @@ const ImageCRUD = () => {
 
   const handleDeleteImage = async (id: string) => {
     try {
-      await axiosInstance.delete(`${SERVER_API_URL}/images/${id}`);
+      await axiosInstance.delete(`${SERVER_API_URL}/images/delete/${id}`);
       fetchImages();
       toast.success("Image deleted successfully.");
     } catch (error) {
